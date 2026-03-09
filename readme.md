@@ -71,3 +71,44 @@ t.sort((item1, item2) => item1.toLocaleCompare(item2)); // ['Alain', 'Kevin', 'K
 const t = [1, 42, 17, 14];
 const t2 = t.toSorted((item1, item2) => item1 - item2); // [1, 14, 17, 42]
 ```
+
+
+# Rappel Objet
+
+- Instanciation
+```js
+// instanciation d'un objet vide
+const myObject = {}; 
+
+// instanciation avec des valeurs
+const person = { id: 1, nom: 'LY', prenom: 'Khun' };
+
+// objets impriqués (nested)
+const product = { nom: 'Coca', price: 1.05, description: {
+    fr: 'Boisson sucrée au gout de cola',
+    en: 'Soft Drink with cola flavour'
+} };
+```
+
+- Récupération et modification des propriétés 
+```js
+console.log(product.nom); // Coca;
+
+product.nom = 'Coca Cola'; // { nom: 'Coca Cola', ... }
+```
+
+- Protection d'un objet
+```js
+// empéche l'ajout de nouvelles propriétés dans l'objet 
+Object.seal(myObj);
+
+// empéche toute modification de l'objet
+Object.freeze(myObj);
+```
+
+- Copier un objet
+*Comme pour les tableaux, les objets sont des références*
+```js
+// spread operator
+const copy = { ...myObj };
+```
