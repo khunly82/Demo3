@@ -4,34 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-        #tasks-table {
-            th, td {
-                border: 1px solid black;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <link rel="stylesheet" href="./main.css">
 </head>
 <body>
-    <h1>Nouvelle tache</h1>
-    <form id="task-form">
-        <input id="task-name-input" type="text">
-        <button>Ajouter</button>
-    </form>
-    <h1>Filtrer</h1>
-    <input id="search-input" type="text">
-
-    <table id="tasks-table">
-        <thead>
-            <tr>
-                <th id="task-name-header">
-                    Nom de la tâche
-                </th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
-
+    <div>
+        <input placeholder="Rechercher" id="search-input" type="text">
+        <table id="tasks-table">
+            <thead>
+                <tr>
+                    <th id="task-name-header">
+                        Nom de la tâche
+                        <i class="fa fa-sort"></i>
+                    </th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <div>
+        <form id="task-form">
+            <input placeholder="Nouvelle tache" id="task-name-input" type="text">
+            <button class="btn-add">Ajouter <i class="fa fa-add"></i></button>
+        </form>
+    </div>
     <script src="./main.js"></script>
 </body>
 </html>

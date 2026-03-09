@@ -1,11 +1,16 @@
-// DOM
+// --------------- //
+// ----- DOM ----- //
+// --------------- //
 const tasksTable = document.getElementById('tasks-table');
 const taskForm = document.getElementById('task-form');
 const taskNameInput = document.getElementById('task-name-input');
 const taskNameHeader = document.getElementById('task-name-header');
 const searchInput = document.getElementById('search-input');
+const sortIcons = ['fa-sort', 'fa-caret-down', 'fa-caret-up'];
 
-// LOGIQUE
+// ------------------- //
+// ----- LOGIQUE ----- //
+// ------------------- //
 const tasks = ['Faire la vaisselle', 'Étudier Javascript', 'Regarder la télévision'];
 let nameSort = 0; // 0 -> pas de tri 1-> tri croissant 2 -> tri décroissant
 
@@ -58,7 +63,10 @@ function applyFilters() {
     return toRender;
 }
 
-// RENDER / AFFICHAGE
+// ------------------------------ //
+// ----- RENDER / AFFICHAGE ----- //
+// ------------------------------ //
+
 function createRow(task) {
     // création d'une ligne
     const tr = document.createElement('tr');
@@ -67,16 +75,23 @@ function createRow(task) {
     const td = document.createElement('td');
     td.textContent = task;
 
-    // création d'une colonne pour le button supprimer
-    const tdRemove = document.createElement('td');
-    const button = document.createElement('button');
-    button.textContent = 'Supprimer';
-    button.addEventListener('click', () => removeTask(task));
-    tdRemove.append(button);
+    // création d'une colonne pour les actions
+    const tdActions = document.createElement('td');
+    tdActions.append(createDeleteButton(task));
 
     // ajout des 2 colonnes dans la ligne
-    tr.append(td, tdRemove);
+    tr.append(td, tdActions);
     return tr;
+}
+
+function createDeleteButton(task) {
+    const button = document.createElement('button');
+    button.classList.add('btn-remove');
+    button.addEventListener('click', () => removeTask(task));
+    const trashIcon = document.createElement('i');
+    trashIcon.classList.add('fa', 'fa-trash');
+    button.append(trashIcon);
+    return button;
 }
 
 function renderHTML() {
@@ -84,11 +99,20 @@ function renderHTML() {
     tasksTable.querySelector('tbody').innerHTML = '';
     // appliquer les tris et filtres
     toRender = applyFilters();
+    updateHeaderIcon();
     // ajouter les lignes dans la table
     tasksTable.querySelector('tbody').append(...toRender.map(createRow));
 }
 
-// EVENTS
+function updateHeaderIcon() {
+    // modifier l'icone du header
+    taskNameHeader.querySelector('i.fa').classList.remove(...sortIcons);
+    taskNameHeader.querySelector('i.fa').classList.add(sortIcons[nameSort]);
+}
+
+// ------------------ //
+// ----- EVENTS ----- //
+// ------------------ //
 taskForm.addEventListener('submit', addTask);
 taskNameHeader.addEventListener('click', updateSort);
 searchInput.addEventListener('input', renderHTML);
