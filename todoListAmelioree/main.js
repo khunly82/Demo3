@@ -6,11 +6,11 @@ const taskForm = document.getElementById('task-form');
 const taskNameInput = document.getElementById('task-name-input');
 const taskNameHeader = document.getElementById('task-name-header');
 const searchInput = document.getElementById('search-input');
-const sortIcons = ['fa-sort', 'fa-caret-down', 'fa-caret-up'];
 
 // ------------------- //
 // ----- LOGIQUE ----- //
 // ------------------- //
+const sortIcons = ['fa-sort', 'fa-caret-down', 'fa-caret-up'];
 const tasks = ['Faire la vaisselle', 'Étudier Javascript', 'Regarder la télévision'];
 let nameSort = 0; // 0 -> pas de tri 1-> tri croissant 2 -> tri décroissant
 
