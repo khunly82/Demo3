@@ -13,9 +13,17 @@ const searchInput = document.getElementById('search-input');
 // RENDER / AFFICHAGE
 function createRow(task) {
     const tr = document.createElement('tr');
+
     const td = document.createElement('td');
     td.textContent = task;
-    tr.append(td);
+
+    const tdRemove = document.createElement('td');
+    const button = document.createElement('button');
+    button.textContent = 'X';
+    button.addEventListener('click', () => removeTask(task));
+    tdRemove.append(button);
+
+    tr.append(td, tdRemove);
     return tr;
 }
 
@@ -60,6 +68,12 @@ taskNameHeader.addEventListener('click', () => {
     nameSort = (nameSort + 1) % 3;
     renderHTML();
 });
+
+function removeTask(t) {
+    const i = tasks.indexOf(t);
+    tasks.splice(i, 1);
+    renderHTML();
+}
 
 searchInput.addEventListener('input', renderHTML);
 
