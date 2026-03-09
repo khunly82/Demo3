@@ -110,11 +110,15 @@ function updateHeaderIcon() {
     taskNameHeader.querySelector('i.fa').classList.add(sortIcons[nameSort]);
 }
 
-// ------------------ //
-// ----- EVENTS ----- //
-// ------------------ //
+// ---------------- //
+// ----- INIT ----- //
+// ---------------- //
+renderHTML();
+
+
+// ----------------------- //
+// ----- INIT EVENTS ----- //
+// ----------------------- //
 taskForm.addEventListener('submit', addTask);
 taskNameHeader.addEventListener('click', updateSort);
 searchInput.addEventListener('input', renderHTML);
-
-renderHTML();
