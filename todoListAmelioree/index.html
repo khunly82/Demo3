@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #tasks-table {
+            th, td {
+                border: 1px solid black;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Nouvelle tache</h1>
+    <form id="task-form">
+        <input id="task-name-input" type="text">
+        <button>Ajouter</button>
+    </form>
+    <h1>Filtrer</h1>
+    <input id="search-input" type="text">
+
+    <table id="tasks-table">
+        <thead>
+            <tr>
+                <th id="task-name-header">
+                    Nom de la tâche
+                </th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script src="./main.js"></script>
+</body>
+</html>
