@@ -1,8 +1,3 @@
-// constantes et variables
-// Logique
-const tasks = ['Faire la vaisselle', 'Étudier Javascript', 'Regarder la télévision'];
-let nameSort = 0; // 0 -> pas de tri 1-> tri croissant 2 -> tri décroissant
-
 // DOM
 const tasksTable = document.getElementById('tasks-table');
 const taskForm = document.getElementById('task-form');
@@ -10,30 +5,38 @@ const taskNameInput = document.getElementById('task-name-input');
 const taskNameHeader = document.getElementById('task-name-header');
 const searchInput = document.getElementById('search-input');
 
-// RENDER / AFFICHAGE
-function createRow(task) {
-    const tr = document.createElement('tr');
+// LOGIQUE
+const tasks = ['Faire la vaisselle', 'Étudier Javascript', 'Regarder la télévision'];
+let nameSort = 0; // 0 -> pas de tri 1-> tri croissant 2 -> tri décroissant
 
-    const td = document.createElement('td');
-    td.textContent = task;
-
-    const tdRemove = document.createElement('td');
-    const button = document.createElement('button');
-    button.textContent = 'X';
-    button.addEventListener('click', () => removeTask(task));
-    tdRemove.append(button);
-
-    tr.append(td, tdRemove);
-    return tr;
+function updateSort() {
+    // modifier le tri
+    nameSort = (nameSort + 1) % 3;
+    renderHTML();
 }
 
-function renderHTML() {
-    tasksTable.querySelector('tbody').innerHTML = '';
-    toRender = applyFilters();
-    tasksTable.querySelector('tbody').append(...toRender.map(createRow));
+function removeTask(t) {
+    // retirer une tache de la liste
+    const i = tasks.indexOf(t);
+    tasks.splice(i, 1);
+    renderHTML();
+}
+
+function addTask(e) {
+    // empecher le rechargement de la page
+    e.preventDefault();
+    // vérifier que l'input n'est pas vide
+    if(!taskNameInput.value.trim()) {
+        return;
+    }
+    // ajouter dans la liste la nouvelle tache
+    tasks.push(taskNameInput.value.trim());
+    taskNameInput.value = '';
+    renderHTML();
 }
 
 function applyFilters() {
+    // trier en fct de l'ordre
     let toRender = tasks.toSorted(((item1, item2) => {
         if(nameSort === 0) {
             return 1;
@@ -46,35 +49,48 @@ function applyFilters() {
         }
     }));
 
-    toRender = toRender.filter(item => item.toLocaleLowerCase()
-        .startsWith(searchInput.value.toLocaleLowerCase()));
-
+    // filtrer en fonction de la valeur de l'input « search »
+    toRender = toRender.filter(item => 
+        item.toLocaleLowerCase()
+            .startsWith(searchInput.value.toLocaleLowerCase())
+    );
+    
     return toRender;
 }
 
-// EVENTS
-taskForm.addEventListener('submit', e => {
-    // empecher le rechargement de la page
-    e.preventDefault();
-    if(!taskNameInput.value.trim()) {
-        return;
-    }
-    tasks.push(taskNameInput.value);
-    taskNameInput.value = '';
-    renderHTML();
-});
+// RENDER / AFFICHAGE
+function createRow(task) {
+    // création d'une ligne
+    const tr = document.createElement('tr');
 
-taskNameHeader.addEventListener('click', () => {
-    nameSort = (nameSort + 1) % 3;
-    renderHTML();
-});
+    // création d'une colonne pour le nom
+    const td = document.createElement('td');
+    td.textContent = task;
 
-function removeTask(t) {
-    const i = tasks.indexOf(t);
-    tasks.splice(i, 1);
-    renderHTML();
+    // création d'une colonne pour le button supprimer
+    const tdRemove = document.createElement('td');
+    const button = document.createElement('button');
+    button.textContent = 'Supprimer';
+    button.addEventListener('click', () => removeTask(task));
+    tdRemove.append(button);
+
+    // ajout des 2 colonnes dans la ligne
+    tr.append(td, tdRemove);
+    return tr;
 }
 
+function renderHTML() {
+    // vider la table
+    tasksTable.querySelector('tbody').innerHTML = '';
+    // appliquer les tris et filtres
+    toRender = applyFilters();
+    // ajouter les lignes dans la table
+    tasksTable.querySelector('tbody').append(...toRender.map(createRow));
+}
+
+// EVENTS
+taskForm.addEventListener('submit', addTask);
+taskNameHeader.addEventListener('click', updateSort);
 searchInput.addEventListener('input', renderHTML);
 
 renderHTML();
