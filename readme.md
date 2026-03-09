@@ -112,3 +112,20 @@ Object.freeze(myObj);
 // spread operator
 const copy = { ...myObj };
 ```
+
+# Rappel Promise
+
+*Une promesse est un objet qui permet de récupérer un résultat sans bloquer le code*
+
+```js
+// pour attendre le résultat d'une promise
+const promise = ...;
+promise
+    .then(result => /* ce que l'on va faire avec le résulat de la promise */)
+    .catch(err => /* ce que l'on va vouloir faire en cas d'erreur */);
+
+// dans une fonction asynchrone (async)
+const result = await promise
+    .catch(err => /* ce que l'on va vouloir faire en cas d'erreur */);
+/* ce que l'on va faire avec le resulat de la promesse */
+```

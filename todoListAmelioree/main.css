@@ -22,7 +22,6 @@ input {
     border-spacing: 0;
     border: 2px solid black;
     th, td {
-        border: 1px solid black;
         text-align: left;
         padding: 5px 20px;
         &:last-child {
@@ -43,6 +42,18 @@ input {
         cursor: pointer;
         font-size: 10px;
     }
+    .btn-close {
+        color: green;
+        border: 2px solid green;
+        background: transparent;
+        width: 30px;
+        aspect-ratio: 1/1;
+        cursor: pointer;
+        font-size: 10px;
+        &:disabled {
+            opacity: 0.3;
+        }
+    }
 }
 
 form {
@@ -57,5 +68,22 @@ form {
         padding: 5px 20px;
         font-weight: bolder;
         align-self: flex-end;
+    }
+}
+
+
+.dialog-container {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background-color: #333A;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    > .dialog {
+        background-color: white;
+        padding: 20px;
     }
 }
